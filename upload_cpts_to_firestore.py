@@ -1,13 +1,4 @@
-import firebase_admin
 import csv
-from firebase_admin import credentials, firestore 
- 
-cred = credentials.Certificate('rvuwallet-firebase-adminsdk-14f5l-3efed0fdb3.json')
-
-firebase_admin.initialize_app(cred, {'databaseURL' : 'https://RVUWallet.firebaseio.com/'})
-
-db = firestore.client()
-doc_ref = db.collection(u'cpts')
 
 def read_files_from_AMA():
     #Read textfile with long descriptors
@@ -37,7 +28,7 @@ def delete_cpts_from_firestore(self):
             doc_ref.document(doc.id).delete()
             # print(f'{doc.id} => {doc.to_dict()}')
 
-def upload_to_firestore(longult, medu, consumers):
+def process_cpts(longult, medu, consumers, doc_ref):
     count = 0
     for line in longult:  
         count += 1
@@ -76,11 +67,9 @@ def upload_to_firestore(longult, medu, consumers):
                 u'year': "2022",
                 u'version': "Q1"
             }
+            print(cpt_dict)
             # doc_ref.document().set(cpt_dict)
 
-def main():
+def upload_cpts(doc_ref):
     cptData = read_files_from_AMA()
-    upload_to_firestore(cptData[0],cptData[1], cptData[2])
-
-if __name__ == '__main__':
-        main()
+    process_cpts(cptData[0],cptData[1], cptData[2],doc_ref)
