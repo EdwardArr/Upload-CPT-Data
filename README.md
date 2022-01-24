@@ -17,4 +17,4 @@ Process text files licensed from American Medical Association to upload CPT® an
 #### 2. Copy Firebase API Key file to the new folder
 #### 3. Copy AMA data files to new folder
 #### 4. Copy python scripts to new folder 
-#### 5. Run python scripts on command line
+#### 5. Run main.py on command line
