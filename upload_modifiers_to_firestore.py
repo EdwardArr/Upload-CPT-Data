@@ -1,22 +1,9 @@
-import firebase_admin
-from firebase_admin import credentials, firestore 
-# import sys
-
-cred = credentials.Certificate('rvuwallet-firebase-adminsdk-14f5l-3efed0fdb3.json')
-
-firebase_admin.initialize_app(cred, {
-	'databaseURL' : 'https://RVUWallet.firebaseio.com/'
-})
-
-db= firestore.client()
-doc_ref = db.collection(u'modifiers')
-
 filename = 'MODUL.txt'
 
-def main():
+def upload_modifiers(doc_ref):
 	modifier_text_results = read_modifier_file()
 	listOfTuples = create_list_of_tuples(modifier_text_results[1])
-	write_to_firebase(listOfTuples, modifier_text_results[0])
+	write_to_firebase(listOfTuples, modifier_text_results[0], doc_ref)
 
 def read_modifier_file():
 	modifierIndexList = []
@@ -42,7 +29,7 @@ def create_list_of_tuples(modifierIndexList):
 			listOfTuples.append((startOfLine,endOfLine))
 	return listOfTuples
 
-def write_to_firebase(listOfTuples, lines):
+def write_to_firebase(listOfTuples, lines, doc_ref):
 	for lineRange in listOfTuples:
 		modifier = ""
 		heading = ""
@@ -92,6 +79,3 @@ def write_to_firebase(listOfTuples, lines):
 			print("Modifier: {} ".format(modifier))
 			print("Heading: {}".format(heading))
 			print("Description: {}".format(description))
-
-if __name__ == '__main__':
-    main()
