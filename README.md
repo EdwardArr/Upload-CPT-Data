@@ -1,5 +1,5 @@
 # Upload-CPT®-Data
-Process text files licensed from American Medical Association to upload CPT® and modifier data to Google Firebase. 
+With one command, process all CPT content licensed from American Medical Association and upload CPT® and modifier data to Google Firebase. 
 
 ### Prerequisites
 
